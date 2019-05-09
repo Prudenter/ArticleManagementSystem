@@ -1,0 +1,53 @@
+<div class="main_body" id="main_body">
+    <div class="breadcrub">
+        当前位置：文章管理>文章列表
+    </div>
+    <div class="pannel">
+        <span class="sel_label">请选择文章分类：</span>
+        <form action="/article/index" method="post" id="form">
+            <select name="select" id="select" class="sel_opt">
+                {{range .articleTypes}}
+                    <option {{if compare .TypeName $.typeName}} selected="true" {{end}}>{{.TypeName}}</option>
+                {{end}}
+                {{if compare .typeName ""}}<option selected="true">全部类型</option>{{end}}
+            </select>
+        </form>
+
+        <table class="common_table">
+            <tr>
+                <th width="43%">文章标题</th>
+                <th width="10%">文章内容</th>
+                <th width="16%">添加时间</th>
+                <th width="7%">阅读量</th>
+                <th width="7%">删除</th>
+                <th width="7%">编辑</th>
+                <th width="10%">文章类型</th>
+            </tr>
+
+        {{range .articles}}
+            <tr>
+                <td>{{.Title}}</td>
+                <td><a href="/article/content?id={{.Id}}">查看详情</a></td>
+                <td>{{.Time.Format "20060102 15:04:05"}}</td>
+                <td>{{.ReadCount}}</td>
+                <td><a href="/article/delete?id={{.Id}}" class="dels">删除</a></td>
+                <td><a href="/article/update?id={{.Id}}">编辑</a></td>
+                <td>{{if compare .ArticleType nil}} 暂无 {{else}} {{.ArticleType.TypeName}} {{end}}</td>
+            </tr>
+        {{end}}
+        </table>
+
+        <ul class="pagenation">
+            <li><a href="/article/index?pageIndex=1&select={{.typeName}}">首页</a></li>
+        {{/*调用视图函数，计算页码数*/}}
+        {{/*可以传多个参数*/}}
+        {{/*<li><a href="/index?pageIndex={{prePage .pageIndex}}">上一页 </a> </li>*/}}
+        {{/*只能传一个参数*/}}
+            <li><a href="/article/index?pageIndex={{.pageIndex | prePage }}&select={{.typeName}}">上一页 </a></li>
+            <li><a href="/article/index?pageIndex={{nextPage .pageIndex .pageNum}}&select={{.typeName}}">下一页</a></li>
+            <li><a href="/article/index?pageIndex={{.pageNum}}&select={{.typeName}}">末页</a></li>
+            <li>共{{.count}}条记录/共{{.pageNum}}页/当前第{{.pageIndex}}页</li>
+        </ul>
+    </div>
+</div>
+

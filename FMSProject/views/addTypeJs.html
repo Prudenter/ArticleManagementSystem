@@ -1,0 +1,11 @@
+<script>
+    $(function () {
+        //1.找标签  2.触发了什么事件    3.实现什么功能
+        //文章删除事件
+        $(".edit").click(function () {
+            if (!confirm("确认要删除该文章类型吗？")) {
+                return false
+            }
+        });
+    });
+</script>

@@ -1,0 +1,39 @@
+<div class="main_body" id="main_body">
+    <div class="breadcrub">
+        当前位置：文章管理>文章列表>文章详情
+    </div>
+    <div class="pannel">
+        <h3 class="review_title">文章详情</h3>
+        <div class="form_group">
+            <label>文章标题：</label>
+            <p class="detail"><b>{{.article.Title}}</b></p>
+        </div>
+        <div class="form_group">
+            <label>文章类型：</label>
+            {{/*<p class="detail">{{.typeName}}</p>*/}}
+            {{/*<p class="detail">{{.article.ArticleType.TypeName}}</p>*/}}
+            <td>{{if compare .article.ArticleType nil}} 暂无 {{else}} {{.article.ArticleType.TypeName}} {{end}}</td>
+        </div>
+        <div class="form_group">
+            <label>文章内容：</label>
+            <p class="detail"><img src="{{.article.Img}}">{{.article.Content}}</p>
+        </div>
+        <div class="form_group">
+            <label>阅读次数：</label>
+            <p class="detail">{{.article.ReadCount}}</p>
+        </div>
+        <div class="form_group">
+            <label>最近浏览：</label>
+            {{/*用户名不去重*/}}
+            {{/*<p class="detail">{{range .article.Users}}{{.Name}} |{{end}}</p>*/}}
+            {{/*用户名去重*/}}
+            <p class="detail">{{range .users}}{{.Name}} |{{end}}</p>
+        </div>
+        <div class="form_group">
+            <label>创建时间：</label>
+            <p class="detail">{{.article.Time.Format "2006-01-02 15:04:05"}}</p>
+            <span>{{.errmsg}}</span>
+        </div>
+    </div>
+</div>
+
